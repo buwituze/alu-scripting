@@ -1,3 +1,3 @@
-#!/usr/in/env ruby
+#!/usr/in/ruby
 
 puts ARGV[0].scan(/^\d{1,10}$/).join
