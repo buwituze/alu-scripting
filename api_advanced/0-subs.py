@@ -3,20 +3,14 @@
 
 import requests
 
+
 def number_of_subscribers(subreddit):
-    """Retrieve the number of subscribers for the given subreddit"""
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    """Reddit subscribers"""
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {"User-Agent": "My-User-Agent"}
 
-    response = requests.get(url, headers=headers)
-
-    if response.status_code == 200:
-        data = response.json()
-        return data.get('data', {}).get('subscribers', 0)
-    else:
+    response = requests.get(url, headers=headers, allow_redirects=False)
+    if response.status_code != 200:
         return 0
-
-if __name__ == "__main__":
-    # Test cases
-    print(number_of_subscribers("existing_subreddit"))
-    print(number_of_subscribers("nonexisting_subreddit"))
+    else:
+        return response.json().get("data").get("subscribers")
