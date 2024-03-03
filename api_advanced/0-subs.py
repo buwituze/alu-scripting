@@ -1,17 +1,17 @@
 #!/usr/bin/python3
-"""Return the number of subscribers of a given subreddit"""
-
-import requests
+"""Module for task 0"""
 
 
 def number_of_subscribers(subreddit):
-    """function that fetches number_of_subscribers"""
-    URL = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    HEADERS = {"User-Agent": "PostmanRuntime/7.35.0"}
+    """Queries the Reddit API and returns the number of subscribers
+    to the subreddit"""
+    import requests
 
-    try:
-        RESPONSE = requests.get(URL, headers=HEADERS, allow_redirects=False)
-        return RESPONSE.json().get("data").get("subscribers")
-
-    except Exception:
+    sub_info = requests.get("https://www.reddit.com/r/{}/about.json"
+                            .format(subreddit),
+                            headers={"User-Agent": "My-User-Agent"},
+                            allow_redirects=False)
+    if sub_info.status_code >= 300:
         return 0
+
+    return sub_info.json().get("data").get("subscribers")
