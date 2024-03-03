@@ -13,7 +13,3 @@ def number_of_subscribers(subreddit):
         return data.get('data', {}).get('subscribers', 0)
     else:
         return 0
-
-# Test cases
-print(number_of_subscribers("existing_subreddit"))
-print(number_of_subscribers("nonexisting_subreddit"))
